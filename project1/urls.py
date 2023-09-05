@@ -17,7 +17,28 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
+from rest_framework import permissions
+
+# swagger settings
+schema_view = get_schema_view(
+   openapi.Info(
+      title="Infinity Fire solution APIs",
+      default_version='v0.2.0',
+      description="Welcome to the API Documentation",
+   ),
+   public=True,
+   permission_classes=[permissions.AllowAny]
+)
+
+  
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('myaap.urls')),
+
+    #swagger links for the api documentation
+    path('api/swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    path('api/redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 ]

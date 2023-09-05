@@ -41,7 +41,8 @@ INSTALLED_APPS = [
 
     'myaap',
     'rest_framework',
-]
+    'drf_yasg',
+    ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
