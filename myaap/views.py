@@ -6,10 +6,17 @@ from rest_framework.renderers import TemplateHTMLRenderer, JSONRenderer
 from rest_framework import generics,status
 from rest_framework.response import Response
 from rest_framework.response import Response
+from drf_yasg.utils import swagger_auto_schema
 
 from . models import Student
-from project1.response import render_html_response
 from . serializers import StudentSerializer
+
+from project1.response import render_html_response
+
+
+
+
+
 
 # Create your views here.
 class StudentaddView(generics.ListAPIView):
@@ -20,7 +27,8 @@ class StudentaddView(generics.ListAPIView):
     serializer_class = StudentSerializer
     renderer_classes = [TemplateHTMLRenderer, JSONRenderer]
     template_name = 'student_form.html'
-   
+
+    @swagger_auto_schema(operation_id='Get Student Form')
     def get(self, request, *args, **kwargs):
         queryset = Student.objects.all()
 
@@ -33,6 +41,7 @@ class StudentaddView(generics.ListAPIView):
             serializer = self.serializer_class(queryset, many=True)
             return Response(serializer.data)
         
+    @swagger_auto_schema(operation_id='Post Student Form')   
     def post(self, request, *args, **kwargs):
         """
         Handle POST request to add or update a contact.
