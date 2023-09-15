@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load hashid_filters %}
+{% block title %}Student List{% endblock title %}
+{% block body %}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Student List</h1>
+        <a class="btn btn-primary" href="{% url 'student_add' %}">Add Student</a>
+    </div>
+
+    <!-- Enclose the table in a card for a better UI -->
+    <div class="card">
+        <div class="card-body">
+            <table class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Phone Number</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for student in students %}
+                    <tr>
+                        <td>{{ student.first_name }}</td>
+                        <td>{{ student.last_name }}</td>
+                        <td>{{ student.email }}</td>
+                        <td>{{ student.phone_number }}</td>
+                        <td style="text-align:center;">
+                            <a class="btn btn-secondary btn-sm mx-2"
+                               href="{% url 'student_edit' student.id|hashid_encode %}" tooltip="Edit"><i class="fa fa-edit"></i></a>
+                               <a class="btn btn-secondary btn-sm"
+                               href="{% url 'student_details' student.id %}"><i class="fa fa-eye" tooltip="View"></i></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock body %}
+

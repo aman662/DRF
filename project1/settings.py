@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'ckeditor',
+    'import_export',
 
     'myaap',
     'rest_framework',
@@ -53,6 +55,14 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        # 'toolbar': 'full',
+        'height': 300,
+        'width': 900,
+    },
+}
 
 ROOT_URLCONF = 'project1.urls'
 
@@ -105,6 +115,13 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'  # SMTP server address for Gmail
+EMAIL_PORT = 587  # SMTP port for TLS (587 for TLS, 465 for SSL)
+EMAIL_USE_TLS = True  # Use TLS (True for TLS, False for SSL)
+EMAIL_HOST_USER = 'your email'  # Your Gmail email address
+EMAIL_HOST_PASSWORD = 'your app password'  # Your Gmail password or app-specific password
+
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
@@ -122,7 +139,12 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+# Specify the directory where static files will be collected
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
